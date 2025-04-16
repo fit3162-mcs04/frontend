@@ -1,0 +1,71 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function UploadPage() {
+  const router = useRouter();
+  const [file, setFile] = useState<File | null>(null);
+  const [result, setResult] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const lastUser = users.length > 0 ? users[users.length - 1] : null;
+    if (lastUser) {
+      setUsername(lastUser.username);
+    } else {
+      router.push('/login');
+    }
+  }, [router]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file) return;
+
+    // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
+    setTimeout(() => {
+      setResult("Your predicted stroke risk is: LOW.");
+    }, 1000);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('users');
+    router.push('/login');
+  };
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gray-50 dark:bg-black text-gray-800 dark:text-white">
+      <h1 className="text-2xl font-bold mb-2">Welcome, {username}!</h1>
+      <button
+        onClick={handleLogout}
+        className="mb-6 text-sm text-red-600 underline hover:text-red-800"
+      >
+        Logout
+      </button>
+
+      <h2 className="text-lg mb-6">Upload your CSV file for stroke risk prediction</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileChange}
+          className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded file:text-sm file:bg-white hover:file:bg-gray-100"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+        >
+          Predict Risk
+        </button>
+      </form>
+      {result && <p className="mt-6 text-lg font-semibold text-green-600">{result}</p>}
+    </main>
+  );
+}
