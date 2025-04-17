@@ -6,8 +6,48 @@ import { useRouter } from 'next/navigation';
 export default function UploadPage() {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState<string>('');
+  //const [result, setResult] = useState<string>('');
   const [username, setUsername] = useState<string>('');
+  const [features, setFeatures] = useState(null);
+  const [prediction, setPrediction] = useState<number | null>(null);
+
+  const handlePredict = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // const features = [5.1, 3.5, 1.4, 0.2]; // Example input: replace with your actual input features
+    // const result = await getPrediction(features);
+    // setPrediction(result);
+    if (!file) {
+      alert("Please upload a CSV file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      setPrediction(data.prediction);
+    } catch (error) {
+      console.error("Prediction failed:", error);
+    }
+  };
+
+  async function getPrediction(features: number[]) {
+    const res = await fetch('http://127.0.0.1:5000/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ features })
+    });
+
+    const data = await res.json();
+    console.log(data.prediction)
+    return data.prediction;
+  }
 
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -31,7 +71,7 @@ export default function UploadPage() {
 
     // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
     setTimeout(() => {
-      setResult("Your predicted stroke risk is: LOW.");
+      //setResult("Your predicted stroke risk is: LOW.");
     }, 1000);
   };
 
@@ -51,7 +91,7 @@ export default function UploadPage() {
       </button>
 
       <h2 className="text-lg mb-6">Upload your CSV file for stroke risk prediction</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      <form onSubmit={handlePredict} className="flex flex-col items-center gap-4">
         <input
           type="file"
           accept=".csv"
@@ -65,7 +105,7 @@ export default function UploadPage() {
           Predict Risk
         </button>
       </form>
-      {result && <p className="mt-6 text-lg font-semibold text-green-600">{result}</p>}
+      {prediction !== null && <p>Prediction: {prediction}</p>}
     </main>
   );
 }
