@@ -1,33 +1,24 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-import NavbarLayout from './Navbar-layout';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import type { Metadata } from "next"
+import "./styles/globals.css"
+import { geistMono, geistSans } from "@/lib/fonts"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
-  title: 'Genetic Stroke Risk Predictor',
-  description: 'Upload genetic CSV and get stroke risk prediction',
-};
+  title: "Genetic Stroke Risk Predictor",
+  description: "Upload genetic CSV and get stroke risk prediction",
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NavbarLayout>{children}</NavbarLayout>
+        {children}
+        <Toaster richColors />
       </body>
     </html>
-  );
+  )
 }
