@@ -49,6 +49,14 @@ export default function UploadPage() {
         Logout
       </button>
 
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="mb-6 text-blue-600 text-sm underline hover:text-blue-800"
+      >
+        Back to Home
+      </button>
+
       <h2 className="mb-6 text-lg">Upload your CSV file for stroke risk prediction</h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
         <input

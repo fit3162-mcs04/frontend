@@ -5,12 +5,13 @@ export default function Home() {
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex max-w-2xl flex-col items-center gap-8 text-center">
+        {/* logo */}
         <Image
-          className="dark:invert"
-          src="/dna-logo.svg"
-          alt="Genetic Testing Logo"
-          width={120}
-          height={120}
+          src="/images/logo.png"
+          alt="MCS04 Logo"
+          width={300}
+          height={300}
+          className="rounded-md -mt-40"
           priority
         />
         <h1 className="font-bold text-3xl">Genetic Stroke Risk Prediction</h1>

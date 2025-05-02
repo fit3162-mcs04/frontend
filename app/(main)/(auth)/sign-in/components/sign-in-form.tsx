@@ -1,7 +1,14 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -44,65 +51,64 @@ export const SignInForm = () => {
       await signIn.email({
         email: e.email,
         password: e.password,
-        fetchOptions: {
-          onSuccess() {
-            toast.success("Successfully signed in")
-            router.push("/dashboard")
-          },
-          onError(ctx) {
-            toast.error(`Failed to sign in: ${ctx.error.message}"`)
-          },
-        },
       })
-    } catch (error) {
-      console.error("Error while signing in: ", error)
+
+      // Save the login user information (for the identification of the upload page)
+      localStorage.setItem("users", JSON.stringify([{ username: e.email }]))
+
+      toast.success("Successfully signed in")
+      router.push("/upload") 
+    } catch (error: any) {
+      toast.error(`Failed to sign in: ${error?.message ?? "Unknown error"}`)
+      console.error("Error while signing in:", error)
     } finally {
       setLoading(false)
     }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="font-bold text-2xl">Login to your account</h1>
-          <p className="text-balance text-muted-foreground text-sm">Enter your email below to login to your account</p>
+          <p className="text-balance text-muted-foreground text-sm">
+            Enter your email below to login to your account
+          </p>
         </div>
 
         <div className="grid gap-6">
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="email" placeholder="m@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input disabled={loading} type="email" placeholder="m@example.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="password" placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          {/* Password */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input disabled={loading} type="password" placeholder="Password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <Button type="submit" className="w-full">
-            Login
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </Button>
           <div className="text-center text-sm">
             Don&apos;t have an account?{" "}

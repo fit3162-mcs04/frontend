@@ -25,6 +25,13 @@ export default async function AuthLayout({
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="/" className="flex items-center gap-2 font-medium">
+            {/* ADD LOGO */}
+            <img
+              src="/images/logo.png"
+              alt="MCS04 Logo"
+              className="h-15 w-auto rounded-sm" 
+            />
+            {/* ICONS can be retained or deleted */}
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
