@@ -1,14 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -57,7 +50,7 @@ export const SignInForm = () => {
       localStorage.setItem("users", JSON.stringify([{ username: e.email }]))
 
       toast.success("Successfully signed in")
-      router.push("/upload") 
+      router.push("/upload")
     } catch (error: any) {
       toast.error(`Failed to sign in: ${error?.message ?? "Unknown error"}`)
       console.error("Error while signing in:", error)
@@ -71,9 +64,7 @@ export const SignInForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="font-bold text-2xl">Login to your account</h1>
-          <p className="text-balance text-muted-foreground text-sm">
-            Enter your email below to login to your account
-          </p>
+          <p className="text-balance text-muted-foreground text-sm">Enter your email below to login to your account</p>
         </div>
 
         <div className="grid gap-6">

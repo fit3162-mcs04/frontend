@@ -1,14 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -84,9 +77,7 @@ export const SignUpForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="font-bold text-2xl">Create an account</h1>
-          <p className="text-balance text-muted-foreground text-sm">
-            Enter your details below to create an account
-          </p>
+          <p className="text-balance text-muted-foreground text-sm">Enter your details below to create an account</p>
         </div>
 
         <div className="grid gap-6">
@@ -98,13 +89,7 @@ export const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={loading}
-                    type="text"
-                    placeholder="Name"
-                    autoComplete="name"
-                    {...field}
-                  />
+                  <Input disabled={loading} type="text" placeholder="Name" autoComplete="name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,13 +104,7 @@ export const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={loading}
-                    type="email"
-                    placeholder="m@example.com"
-                    autoComplete="email"
-                    {...field}
-                  />
+                  <Input disabled={loading} type="email" placeholder="m@example.com" autoComplete="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

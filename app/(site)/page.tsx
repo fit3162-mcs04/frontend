@@ -11,7 +11,7 @@ export default function Home() {
           alt="MCS04 Logo"
           width={300}
           height={300}
-          className="rounded-md -mt-40"
+          className="-mt-40 rounded-md"
           priority
         />
         <h1 className="font-bold text-3xl">Genetic Stroke Risk Prediction</h1>
