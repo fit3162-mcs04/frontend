@@ -15,7 +15,7 @@ export default function UploadPage() {
     if (lastUser) {
       setUsername(lastUser.username)
     } else {
-      router.push("/login")
+      router.push("/sign-in")
     }
   }, [router])
 
@@ -39,7 +39,7 @@ export default function UploadPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("users")
-    router.push("/login")
+    router.push("/sign-in")
   }
 
   return (
