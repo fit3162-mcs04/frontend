@@ -16,7 +16,7 @@ export default function UploadPage() {
     if (lastUser) {
       setUsername(lastUser.username)
     } else {
-      router.push("/login")
+      router.push("/sign-in")
     }
   }, [router])
 
@@ -37,6 +37,12 @@ export default function UploadPage() {
       setResult("Your predicted stroke risk is: LOW.")
     }, 1000)
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("users")
+    router.push("/sign-in")
+  }
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
