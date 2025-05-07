@@ -1,40 +1,28 @@
 "use client"
 
-import { CategoryScale, Chart, LineElement, LinearScale, PointElement } from "chart.js"
+import Image from "next/image"
 import { useEffect, useState } from "react"
-import { Line } from "react-chartjs-2"
-
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement)
 
 export default function RandomForestPage() {
   const [result, setResult] = useState("")
 
   useEffect(() => {
-    // Simulate to obtain the prediction results
     setTimeout(() => {
-      setResult("Predicted stroke risk: LOW")
+      setResult("Predicted stroke risk using Random Forest: LOW")
     }, 500)
   }, [])
 
-  const data = {
-    labels: ["Feature A", "Feature B", "Feature C", "Feature D"],
-    datasets: [
-      {
-        label: "Prediction Score",
-        data: [0.2, 0.4, 0.1, 0.3],
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.3,
-      },
-    ],
-  }
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
-      <h1 className="mb-4 font-bold text-2xl">Random Forest Result</h1>
-      <p className="mb-6 font-medium text-green-600">{result}</p>
-      <div className="w-full max-w-xl">
-        <Line data={data} />
-      </div>
+    <main className="flex flex-col items-center justify-center min-h-screen px-6 py-12 bg-white dark:bg-black text-gray-800 dark:text-white">
+      <h1 className="text-2xl font-bold mb-4">Random Forest Result</h1>
+      <p className="mb-6 text-green-600 font-medium">{result}</p>
+      <Image
+        src="/images/top_features_rf.png"
+        alt="Top Features - Random Forest"
+        width={800}
+        height={400}
+        className="rounded shadow"
+      />
     </main>
   )
 }
