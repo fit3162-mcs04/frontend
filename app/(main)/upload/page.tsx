@@ -1,5 +1,6 @@
 "use client"
 
+import { LogoutButton } from "@/components/logout-button"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -31,7 +32,7 @@ export default function UploadPage() {
       return
     }
 
-    // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
+    // Simulate prediction result
     setTimeout(() => {
       setResult("Your predicted stroke risk is: LOW.")
     }, 1000)
@@ -42,12 +43,12 @@ export default function UploadPage() {
     router.push("/sign-in")
   }
 
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
       <h1 className="mb-2 font-bold text-2xl">Welcome, {username}!</h1>
-      <button type="button" onClick={handleLogout} className="mb-6 text-red-600 text-sm underline hover:text-red-800">
-        Logout
-      </button>
+
+      <LogoutButton />
 
       <button
         type="button"
@@ -69,7 +70,40 @@ export default function UploadPage() {
           Predict Risk
         </button>
       </form>
+
       {result && <p className="mt-6 font-semibold text-green-600 text-lg">{result}</p>}
+
+      {/*Model selection button area*/}
+      <div className="mt-10 grid w-full max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
+        <button
+          type="button"
+          onClick={() => router.push("/upload/models/random-forest")}
+          className="rounded bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
+        >
+          Random Forest
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/upload/models/svm")}
+          className="rounded bg-teal-600 px-6 py-3 text-white hover:bg-teal-700"
+        >
+          Support Vector Machine
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/upload/models/knn")}
+          className="rounded bg-orange-600 px-6 py-3 text-white hover:bg-orange-700"
+        >
+          K-Nearest Neighbour
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/upload/models/ann")}
+          className="rounded bg-pink-600 px-6 py-3 text-white hover:bg-pink-700"
+        >
+          Artificial Neural Network
+        </button>
+      </div>
     </main>
   )
 }

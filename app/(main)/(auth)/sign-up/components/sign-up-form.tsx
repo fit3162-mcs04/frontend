@@ -63,7 +63,7 @@ export const SignUpForm = () => {
         password: e.password,
       })
       toast.success("Account created! Please sign in.")
-      router.push("/upload")
+      router.push("/sign-in")
     } catch (error: any) {
       toast.error(`Failed to sign up: ${error?.message ?? "Unknown error"}`)
       console.error("Error while signing up:", error)
