@@ -6,8 +6,6 @@ import { useEffect, useState } from "react"
 
 export default function UploadPage() {
   const router = useRouter()
-  const [file, setFile] = useState<File | null>(null)
-  const [result, setResult] = useState<string>("")
   const [username, setUsername] = useState<string>("")
 
   useEffect(() => {
@@ -19,30 +17,6 @@ export default function UploadPage() {
       router.push("/sign-in")
     }
   }, [router])
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0])
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!file) {
-      return
-    }
-
-    // Simulate prediction result
-    setTimeout(() => {
-      setResult("Your predicted stroke risk is: LOW.")
-    }, 1000)
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem("users")
-    router.push("/sign-in")
-  }
-
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
@@ -58,20 +32,7 @@ export default function UploadPage() {
         Back to Home
       </button>
 
-      <h2 className="mb-6 text-lg">Upload your CSV file for stroke risk prediction</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-        <input
-          type="file"
-          accept=".csv"
-          onChange={handleFileChange}
-          className="block w-full text-gray-600 text-sm file:mr-4 file:rounded file:border file:border-gray-300 file:bg-white file:px-4 file:py-2 file:text-sm hover:file:bg-gray-100"
-        />
-        <button type="submit" className="rounded bg-blue-600 px-6 py-2 text-white hover:bg-blue-700">
-          Predict Risk
-        </button>
-      </form>
-
-      {result && <p className="mt-6 font-semibold text-green-600 text-lg">{result}</p>}
+      <h2 className="mb-6 text-lg">Choose a model to see your stroke prediction result</h2>
 
       {/*Model selection button area*/}
       <div className="mt-10 grid w-full max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
