@@ -33,19 +33,19 @@ export default function UploadPage() {
 
     // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
     setTimeout(async () => {
-      const formData = new FormData();
-      formData.append("file", file);
+      const formData = new FormData()
+      formData.append("file", file)
 
       try {
         const response = await fetch("http://127.0.0.1:5000/predict", {
           method: "POST",
           body: formData,
-        });
+        })
 
-        const data = await response.json();
-        console.log(data);
+        const data = await response.json()
+        console.log(data)
       } catch (error) {
-        console.error("Prediction failed:", error);
+        console.error("Prediction failed:", error)
       }
       setResult("Your predicted stroke risk is: LOW.")
     }, 1000)
