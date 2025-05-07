@@ -18,6 +18,43 @@ export default function UploadPage() {
     }
   }, [router])
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0])
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!file) {
+      return
+    }
+
+    // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
+    setTimeout(async () => {
+      const formData = new FormData()
+      formData.append("file", file)
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          body: formData,
+        })
+
+        const data = await response.json()
+        console.log(data)
+      } catch (error) {
+        console.error("Prediction failed:", error)
+      }
+      setResult("Your predicted stroke risk is: LOW.")
+    }, 1000)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("users")
+    router.push("/sign-in")
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
       <h1 className="mb-2 font-bold text-2xl">Welcome, {username}!</h1>
