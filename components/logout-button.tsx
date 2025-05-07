@@ -23,11 +23,7 @@ export const LogoutButton = () => {
   }
 
   return (
-    <button
-      type="button" 
-      onClick={handleLogout}
-      className="text-muted-foreground text-sm transition hover:underline"
-    >
+    <button type="button" onClick={handleLogout} className="text-muted-foreground text-sm transition hover:underline">
       Log out
     </button>
   )
