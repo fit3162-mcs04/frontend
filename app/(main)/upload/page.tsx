@@ -8,6 +8,7 @@ export default function UploadPage() {
   const router = useRouter()
   const [file, setFile] = useState<File | null>(null)
   const [username, setUsername] = useState<string>("")
+  const [result, setResult] = useState<string>("")
 
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem("users") || "[]")
@@ -27,41 +28,23 @@ export default function UploadPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!file) {
-      return
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append("file", file)
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        body: formData,
+      })
+      const data = await response.json()
+      console.log(data)
+      setResult(`Your predicted stroke risk is: ${data.result || "LOW"}.`)
+    } catch (error) {
+      console.error("Prediction failed:", error)
     }
-
-    // Pretend to upload and receive predictions (which can be replaced with API calls in the future)
-    setTimeout(async () => {
-      const formData = new FormData()
-      formData.append("file", file)
-
-      try {
-        const response = await fetch("http://127.0.0.1:5000/predict", {
-          method: "POST",
-          body: formData,
-        })
-
-        const data = await response.json()
-        console.log(data)
-      } catch (error) {
-        console.error("Prediction failed:", error)
-      }
-      setResult("Your predicted stroke risk is: LOW.")
-    }, 1000)
   }
-
-  const handleLogout = () => {
-    localStorage.removeItem("users")
-    router.push("/sign-in")
-  }
-
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
-      <h1 className="mb-2 font-bold text-2xl">Welcome, {username}!</h1>
-
-      <LogoutButton />
-
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
@@ -87,6 +70,17 @@ export default function UploadPage() {
             className="block w-full text-gray-600 text-sm file:mr-4 file:rounded file:border file:border-gray-300 file:bg-white file:px-4 file:py-2 file:text-sm hover:file:bg-gray-100"
           />
         </div>
+
+        <form onSubmit={handleSubmit} className="w-full mt-4">
+          <button
+            type="submit"
+            className="rounded bg-green-600 px-6 py-2 text-white hover:bg-green-700"
+          >
+            Submit for Prediction
+          </button>
+        </form>
+
+        {result && <p className="mt-4 text-md font-medium text-green-700">{result}</p>}
 
         <div className="w-full mt-8">
           <h2 className="mb-4 text-lg font-medium">Choose a model</h2>
