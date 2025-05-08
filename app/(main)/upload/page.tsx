@@ -84,36 +84,22 @@ export default function UploadPage() {
 
         <div className="w-full mt-8">
           <h2 className="mb-4 text-lg font-medium">Choose a model</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button
-              type="button"
-              onClick={() => router.push("/upload/models/random-forest")}
-              className="rounded bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
-            >
-              Random Forest
-            </button>
-            <button
-              type="button"
-              onClick={() => router.push("/upload/models/svm")}
-              className="rounded bg-teal-600 px-6 py-3 text-white hover:bg-teal-700"
-            >
-              Support Vector Machine
-            </button>
-            <button
-              type="button"
-              onClick={() => router.push("/upload/models/knn")}
-              className="rounded bg-orange-600 px-6 py-3 text-white hover:bg-orange-700"
-            >
-              K-Nearest Neighbour
-            </button>
-            <button
-              type="button"
-              onClick={() => router.push("/upload/models/ann")}
-              className="rounded bg-pink-600 px-6 py-3 text-white hover:bg-pink-700"
-            >
-              Artificial Neural Network
-            </button>
-          </div>
+          <select
+            onChange={(e) => {
+              const selected = e.target.value
+              if (selected) {
+                router.push(`/upload/models/${selected}`) // ✅ 正确跳转路径
+              }
+            }}
+            defaultValue=""
+            className="w-full p-3 rounded border border-gray-300 text-gray-800 dark:bg-gray-900 dark:text-white"
+          >
+            <option value="" disabled>Select a model</option>
+            <option value="random-forest">Random Forest</option>
+            <option value="svm">Support Vector Machine</option>
+            <option value="knn">K-Nearest Neighbour</option>
+            <option value="ann">Artificial Neural Network</option>
+          </select>
         </div>
       </div>
     </main>
