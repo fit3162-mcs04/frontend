@@ -1,5 +1,11 @@
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Home | FIT3162 | MCS04",
+  description: "",
+}
 
 export default function Home() {
   return (
@@ -7,18 +13,17 @@ export default function Home() {
       <main className="row-start-2 flex max-w-2xl flex-col items-center gap-8 text-center">
         {/* logo */}
         <Image
-          src="/images/logo.png"
-          alt="MCS04 Logo"
-          width={300}
-          height={300}
-          className="-mt-40 rounded-md"
-          priority
+          className="rounded object-contain dark:invert"
+          src="/logo.png"
+          alt="Genetic Testing Logo"
+          width={180}
+          height={180}
         />
+
         <h1 className="font-bold text-3xl">Genetic Stroke Risk Prediction</h1>
         <p className="text-gray-700 text-md dark:text-gray-300">
           A genetic-based stroke risk analyzer using AI and your genome data.
         </p>
-
         <div className="mt-4 flex flex-col gap-4 sm:flex-row">
           <Link
             href="/sign-in"
@@ -34,9 +39,6 @@ export default function Home() {
           </Link>
         </div>
       </main>
-      <footer className="row-start-3 text-gray-500 text-sm">
-        © {new Date().getFullYear()} Genetic Risk Analyzer. All rights reserved.
-      </footer>
     </div>
   )
 }

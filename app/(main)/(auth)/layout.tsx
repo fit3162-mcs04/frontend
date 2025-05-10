@@ -1,6 +1,6 @@
-import { authClient } from "@/lib/auth-client"
-import { GalleryVerticalEnd } from "lucide-react"
-import { headers } from "next/headers"
+import { fetchSession } from "@/actions/fetch-session"
+import { GalleryVerticalEndIcon } from "lucide-react"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 export default async function AuthLayout({
@@ -8,15 +8,9 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode
 }) {
-  const header = await headers()
-  const { getSession } = authClient
-  const { data } = await getSession({
-    fetchOptions: {
-      headers: header,
-    },
-  })
+  const { session } = await fetchSession()
 
-  if (data) {
+  if (session) {
     redirect("/dashboard")
   }
 
@@ -25,15 +19,12 @@ export default async function AuthLayout({
       {/* LEFT SIDE - LOGO + FORM */}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="/" className="flex items-center gap-2 font-medium">
-            {/* Logo Image */}
-            <img src="/images/logo.png" alt="MCS04 Logo" className="h-12 w-auto rounded-sm" />
-            {/* Optional icon */}
+          <Link href="/" className="flex items-center gap-2 font-medium">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEnd className="size-4" />
+              <GalleryVerticalEndIcon className="size-4" />
             </div>
             MCS04
-          </a>
+          </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">{children}</div>
       </div>
