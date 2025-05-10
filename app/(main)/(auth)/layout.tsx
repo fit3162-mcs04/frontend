@@ -16,6 +16,7 @@ export default async function AuthLayout({
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
+      {/* LEFT SIDE - LOGO + FORM */}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <Link href="/" className="flex items-center gap-2 font-medium">
@@ -27,10 +28,14 @@ export default async function AuthLayout({
         </div>
         <div className="flex flex-1 items-center justify-center">{children}</div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-bold text-9xl text-gray-200 opacity-50">FIT3162</span>
-        </div>
+
+      {/* RIGHT SIDE - BACKGROUND IMAGE */}
+      <div className="relative hidden lg:block">
+        <img
+          src="/images/background.png"
+          alt="Genetic Lab Background"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       </div>
     </div>
   )

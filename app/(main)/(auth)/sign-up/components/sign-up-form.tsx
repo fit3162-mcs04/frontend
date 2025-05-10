@@ -61,18 +61,12 @@ export const SignUpForm = () => {
         name: e.name,
         email: e.email,
         password: e.password,
-        fetchOptions: {
-          onSuccess() {
-            toast.success("Successfully signed up")
-            router.push("/dashboard")
-          },
-          onError(ctx) {
-            toast.error(`Failed to sign up: ${ctx.error.message}"`)
-          },
-        },
       })
-    } catch (error) {
-      console.error("Error while signing up: ", error)
+      toast.success("Account created! Please sign in.")
+      router.push("/sign-in")
+    } catch (error: any) {
+      toast.error(`Failed to sign up: ${error?.message ?? "Unknown error"}`)
+      console.error("Error while signing up:", error)
     } finally {
       setLoading(false)
     }
@@ -88,76 +82,81 @@ export const SignUpForm = () => {
 
         <div className="grid gap-6">
           {/* Name Input Field */}
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="text" placeholder="Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input disabled={loading} type="text" placeholder="Name" autoComplete="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Email Input Field */}
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="email" placeholder="m@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input disabled={loading} type="email" placeholder="m@example.com" autoComplete="email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Password Input Field */}
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="password" placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={loading}
+                    type="password"
+                    placeholder="Password"
+                    autoComplete="new-password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Confirm Password Input Field */}
-          <div className="grid gap-2">
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input disabled={loading} type="password" placeholder="Confirm Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={loading}
+                    type="password"
+                    placeholder="Confirm Password"
+                    autoComplete="new-password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-          <Button type="submit" className="w-full">
-            Sign Up
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Signing up..." : "Sign Up"}
           </Button>
+
           <div className="text-center text-sm">
             Already have an account?{" "}
             <Link href="/sign-in" className="underline underline-offset-4">
