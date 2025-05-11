@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from "next"
+import Image from "next/image"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Home | FIT3162 | MCS04",
   description: "",
-};
+}
 
 export default function HomePage() {
   return (
@@ -34,5 +34,5 @@ export default function HomePage() {
         </div>
       </main>
     </div>
-  );
+  )
 }

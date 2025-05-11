@@ -1,27 +1,19 @@
-"use client";
+"use client"
 
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import * as z from "zod"
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Modal } from "@/components/ui/modal";
-import { useRouter } from "next/navigation";
-import { useAction } from "next-safe-action/hooks";
-import { useQueryClient } from "@tanstack/react-query";
-import { createProject } from "@/actions/create-project";
+import { createProject } from "@/actions/create-project"
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Modal } from "@/components/ui/modal"
+import { Textarea } from "@/components/ui/textarea"
+import { useQueryClient } from "@tanstack/react-query"
+import { useAction } from "next-safe-action/hooks"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   title: z
@@ -39,21 +31,17 @@ const formSchema = z.object({
     })
     .transform((str) => str?.trim() || "")
     .optional(),
-});
+})
 
 interface ProjectCreateModalProps {
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
-export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
-  open,
-  onClose,
-}) => {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const { executeAsync: create, isPending: isCreating } =
-    useAction(createProject);
+export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({ open, onClose }) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
+  const { executeAsync: create, isPending: isCreating } = useAction(createProject)
 
   // Initialize form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,7 +50,7 @@ export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
       title: "",
       description: "",
     },
-  });
+  })
 
   const onSubmit = async (e: z.infer<typeof formSchema>) => {
     try {
@@ -70,18 +58,18 @@ export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
         loading: "Creating a project...",
         success: "Project created successfully",
         error: "Failed to create project",
-      });
+      })
 
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      router.refresh();
+      queryClient.invalidateQueries({ queryKey: ["projects"] })
+      router.refresh()
     } catch (error) {
-      console.error("Error while creating project: ", error);
+      console.error("Error while creating project: ", error)
     } finally {
-      onClose();
+      onClose()
     }
-  };
+  }
 
-  const { isValid } = form.formState;
+  const { isValid } = form.formState
 
   return (
     <Modal
@@ -110,14 +98,12 @@ export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
                       className="pr-16"
                       maxLength={100}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
+                    <span className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground text-xs">
                       {field.value?.length || 0}/100
                     </span>
                   </div>
                 </FormControl>
-                <FormDescription>
-                  Give your project a clear, descriptive title (required)
-                </FormDescription>
+                <FormDescription>Give your project a clear, descriptive title (required)</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -139,27 +125,19 @@ export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
                       className="min-h-[120px] resize-y pr-16"
                       maxLength={1000}
                     />
-                    <span className="absolute right-3 top-3 text-xs text-muted-foreground">
+                    <span className="absolute top-3 right-3 text-muted-foreground text-xs">
                       {field.value?.length || 0}/1000
                     </span>
                   </div>
                 </FormControl>
-                <FormDescription>
-                  Describe your project in detail (optional)
-                </FormDescription>
+                <FormDescription>Describe your project in detail (optional)</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className="pt-6 space-x-2 flex items-center justify-end">
-            <Button
-              size="sm"
-              variant="outline"
-              type="button"
-              disabled={isCreating}
-              onClick={onClose}
-            >
+          <div className="flex items-center justify-end space-x-2 pt-6">
+            <Button size="sm" variant="outline" type="button" disabled={isCreating} onClick={onClose}>
               Cancel
             </Button>
             <Button size="sm" type="submit" disabled={!isValid || isCreating}>
@@ -169,5 +147,5 @@ export const ProjectCreateModal: React.FC<ProjectCreateModalProps> = ({
         </form>
       </Form>
     </Modal>
-  );
-};
+  )
+}

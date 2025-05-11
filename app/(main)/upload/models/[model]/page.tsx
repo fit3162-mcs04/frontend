@@ -40,13 +40,7 @@ export default function ModelPage() {
       <p className="mb-6 font-medium text-red-600">{result}</p>
 
       {imageSrc ? (
-        <Image
-          src={imageSrc}
-          alt={`Top Features - ${model}`}
-          width={800}
-          height={400}
-          className="rounded shadow"
-        />
+        <Image src={imageSrc} alt={`Top Features - ${model}`} width={800} height={400} className="rounded shadow" />
       ) : (
         <p className="text-gray-400">No image available for this model.</p>
       )}
@@ -54,7 +48,7 @@ export default function ModelPage() {
       <button
         type="button"
         onClick={() => router.back()}
-        className="mt-8 text-sm text-gray-600 underline hover:text-gray-800"
+        className="mt-8 text-gray-600 text-sm underline hover:text-gray-800"
       >
         ← Go Back
       </button>

@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { ProjectCreateModal } from "./project-create-modal";
+import { Breadcrumb } from "@/components/ui/breadcrumb"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { ProjectCreateModal } from "./project-create-modal"
 
 export const AnalyticsNav = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <>
       <ProjectCreateModal open={open} onClose={() => setOpen(false)} />
@@ -22,5 +22,5 @@ export const AnalyticsNav = () => {
         </Button>
       </div>
     </>
-  );
-};
+  )
+}

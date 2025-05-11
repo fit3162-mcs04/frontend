@@ -28,7 +28,9 @@ export default function UploadPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!file) return
+    if (!file) {
+      return
+    }
 
     const formData = new FormData()
     formData.append("file", file)
@@ -48,8 +50,8 @@ export default function UploadPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 text-gray-800 dark:bg-black dark:text-white">
-      <div className="flex flex-col items-center gap-6 max-w-xl w-full text-center">
-        <h1 className="text-3xl font-bold">Welcome, {username}!</h1>
+      <div className="flex w-full max-w-xl flex-col items-center gap-6 text-center">
+        <h1 className="font-bold text-3xl">Welcome, {username}!</h1>
 
         <LogoutButton />
 
@@ -62,7 +64,7 @@ export default function UploadPage() {
         </button>
 
         <div className="w-full">
-          <h2 className="mb-2 text-lg font-medium">Upload your CSV file</h2>
+          <h2 className="mb-2 font-medium text-lg">Upload your CSV file</h2>
           <input
             type="file"
             accept=".csv"
@@ -71,19 +73,16 @@ export default function UploadPage() {
           />
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full mt-4">
-          <button
-            type="submit"
-            className="rounded bg-green-600 px-6 py-2 text-white hover:bg-green-700"
-          >
+        <form onSubmit={handleSubmit} className="mt-4 w-full">
+          <button type="submit" className="rounded bg-green-600 px-6 py-2 text-white hover:bg-green-700">
             Submit for Prediction
           </button>
         </form>
 
-        {result && <p className="mt-4 text-md font-medium text-green-700">{result}</p>}
+        {result && <p className="mt-4 font-medium text-green-700 text-md">{result}</p>}
 
-        <div className="w-full mt-8">
-          <h2 className="mb-4 text-lg font-medium">Choose a model</h2>
+        <div className="mt-8 w-full">
+          <h2 className="mb-4 font-medium text-lg">Choose a model</h2>
           <select
             onChange={(e) => {
               const selected = e.target.value
@@ -92,9 +91,11 @@ export default function UploadPage() {
               }
             }}
             defaultValue=""
-            className="w-full p-3 rounded border border-gray-300 text-gray-800 dark:bg-gray-900 dark:text-white"
+            className="w-full rounded border border-gray-300 p-3 text-gray-800 dark:bg-gray-900 dark:text-white"
           >
-            <option value="" disabled>Select a model</option>
+            <option value="" disabled>
+              Select a model
+            </option>
             <option value="random-forest">Random Forest</option>
             <option value="svm">Support Vector Machine</option>
             <option value="knn">K-Nearest Neighbour</option>

@@ -1,17 +1,17 @@
-import { fetchSession } from "@/actions/fetch-session";
-import { GalleryVerticalEndIcon } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { fetchSession } from "@/actions/fetch-session"
+import { GalleryVerticalEndIcon } from "lucide-react"
+import Link from "next/link"
+import { redirect } from "next/navigation"
 
 export default async function AuthLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const { session } = await fetchSession();
+  const { session } = await fetchSession()
 
   if (session) {
-    redirect("/analyze");
+    redirect("/analyze")
   }
 
   return (
@@ -26,9 +26,7 @@ export default async function AuthLayout({
             MCS04
           </Link>
         </div>
-        <div className="flex flex-1 items-center justify-center">
-          {children}
-        </div>
+        <div className="flex flex-1 items-center justify-center">{children}</div>
       </div>
 
       {/* RIGHT SIDE - BACKGROUND IMAGE */}
@@ -40,5 +38,5 @@ export default async function AuthLayout({
         />
       </div>
     </div>
-  );
+  )
 }

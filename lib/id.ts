@@ -12,7 +12,6 @@ const prefixes = {
   result: "res",
   model: "mod",
   data: "data",
-
 }
 
 export function newId<TPrefix extends keyof typeof prefixes>(prefix: TPrefix) {

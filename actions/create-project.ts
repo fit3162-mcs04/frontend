@@ -7,29 +7,26 @@ import { z } from "zod"
 
 const schema = z.object({
   title: z.string(),
-  description: z.string().optional()
+  description: z.string().optional(),
 })
 
-export const createProject = actionClient
-  .schema(schema)
-  .action(async ({ parsedInput: { title, description } }) => {
-    try {
-      const [data] = await db
-        .insert(project)
-        .values({
-          title,
-          description
-        })
-        .returning({
-          id: project.id
-        })
+export const createProject = actionClient.schema(schema).action(async ({ parsedInput: { title, description } }) => {
+  try {
+    const [data] = await db
+      .insert(project)
+      .values({
+        title,
+        description,
+      })
+      .returning({
+        id: project.id,
+      })
 
-      return {
-        ...data
-      }
+    return {
+      ...data,
     }
-    catch (error) {
-      console.error("Error while creating project: ", error)
-      throw error
-    }
-  })
+  } catch (error) {
+    console.error("Error while creating project: ", error)
+    throw error
+  }
+})
