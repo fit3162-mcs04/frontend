@@ -8,6 +8,11 @@ const prefixes = {
   account: "acct",
   verification: "vert",
   jwks: "jwks",
+  project: "proj",
+  result: "res",
+  model: "mod",
+  data: "data",
+
 }
 
 export function newId<TPrefix extends keyof typeof prefixes>(prefix: TPrefix) {
