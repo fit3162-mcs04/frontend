@@ -1,12 +1,24 @@
 import { fetchProject } from "@/actions/fetch-project"
+import { fetchResult } from "@/actions/fetch-result"
 import { fetchSession } from "@/actions/fetch-session"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { ImageForm } from "./components/image-form"
 
 interface ProjectEditPageProps {
   params: Promise<{ projectId: string }>
+}
+
+export async function generateMetadata({ params }: ProjectEditPageProps): Promise<Metadata> {
+  const { projectId } = await params
+  const { title } = await fetchProject(projectId)
+
+  return {
+    title: `${title} | Projects | FIT3162 | MCS04`,
+    description: "",
+  }
 }
 
 export default async function ProjectEditPage({ params }: ProjectEditPageProps) {
@@ -18,6 +30,12 @@ export default async function ProjectEditPage({ params }: ProjectEditPageProps) 
   }
 
   const { title } = await fetchProject(projectId)
+
+  // Redirect if already data exists
+  const { resultId } = await fetchResult(projectId)
+  if (resultId) {
+    redirect(`/analyze/projects/${projectId}/result`)
+  }
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6">
@@ -42,7 +60,7 @@ export default async function ProjectEditPage({ params }: ProjectEditPageProps) 
             <CardTitle className="text-xl">Analyze</CardTitle>
           </CardHeader>
           <CardContent>
-            <ImageForm />
+            <ImageForm projectId={projectId} />
           </CardContent>
         </Card>
 
