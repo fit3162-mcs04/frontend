@@ -11,7 +11,7 @@ export default function ModelPage() {
   const [result, setResult] = useState("")
 
   useEffect(() => {
-    // 模拟预测结果
+    // Simulation prediction result
     setTimeout(() => {
       if (model === "knn") {
         setResult("Predicted stroke risk using K-Nearest Neighbour: HIGH")
