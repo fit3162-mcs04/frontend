@@ -11,7 +11,7 @@ export default async function AuthLayout({
   const { session } = await fetchSession()
 
   if (session) {
-    redirect("/dashboard")
+    redirect("/analyze")
   }
 
   return (

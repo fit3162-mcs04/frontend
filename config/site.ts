@@ -8,7 +8,7 @@ export const headerItems: { href: string; label: string }[] = [
     label: "About Us",
   },
   {
-    href: "/upload",
+    href: "/analyze",
     label: "Analyze",
   },
 ]

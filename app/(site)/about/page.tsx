@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/ui/breadcrumb"
 import { ArrowRightIcon, Award, Brain, FileSpreadsheet } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -64,6 +65,12 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen transition-opacity duration-700">
       <main className="container mx-auto max-w-6xl px-4 py-16">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "About Us", href: "/about" },
+          ]}
+        />
         {/* Hero Section */}
         <section className="mb-24 text-center">
           <div className="mb-8 flex justify-center">
