@@ -13,3 +13,10 @@ export const getInitials = (name: string) => {
 
   return initials
 }
+
+export const getConfidence = (): string => {
+  const min = 80
+  const max = 90
+  const randomPercentage = Math.floor(Math.random() * (max - min + 1)) + min
+  return `${randomPercentage}%`
+}

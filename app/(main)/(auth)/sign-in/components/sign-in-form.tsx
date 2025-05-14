@@ -46,11 +46,8 @@ export const SignInForm = () => {
         password: e.password,
       })
 
-      // Save the login user information (for the identification of the upload page)
-      localStorage.setItem("users", JSON.stringify([{ username: e.email }]))
-
       toast.success("Successfully signed in")
-      router.push("/upload")
+      router.refresh()
     } catch (error: any) {
       toast.error(`Failed to sign in: ${error?.message ?? "Unknown error"}`)
       console.error("Error while signing in:", error)
