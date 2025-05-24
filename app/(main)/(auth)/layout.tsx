@@ -9,7 +9,7 @@ export default async function AuthLayout({
   children: React.ReactNode
 }) {
   const { session } = await fetchSession()
-
+  console.log(session)
   if (session) {
     redirect("/analyze")
   }
