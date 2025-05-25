@@ -79,6 +79,7 @@ CREATE TABLE `results` (
 	`data_id` text NOT NULL,
 	`model` text NOT NULL,
 	`result` text NOT NULL,
+	`confidence` integer NOT NULL,
 	FOREIGN KEY (`project_id`) REFERENCES `projects`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`data_id`) REFERENCES `data`(`id`) ON UPDATE no action ON DELETE cascade
 );
