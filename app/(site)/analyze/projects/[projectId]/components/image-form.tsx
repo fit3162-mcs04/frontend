@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-
 import { createResult } from "@/actions/create-result"
 import { CsvIcon } from "@/components/icons/csv"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Spinner } from "@/components/ui/spinner"
-import { UploadCloud, XIcon } from "lucide-react"
+import { UploadCloud, XIcon, DownloadIcon } from "lucide-react" // Import DownloadIcon
 import { useAction } from "next-safe-action/hooks"
 import { useRouter } from "next/navigation"
 
@@ -76,22 +75,20 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict`, {
           method: "POST",
           body: formData,
-        });
+        })
 
-        const data = await res.json();
+        const data = await res.json()
 
         if (!res.ok) {
-          // This captures Flask error messages from `jsonify({'error': str(e)})`
           toast.error("Failed to process the file")
-          throw new Error(data.error || "Prediction failed");
+          throw new Error(data.error || "Prediction failed")
         } else {
           router.refresh()
         }
 
-        console.log("Prediction result:", data);
+        console.log("Prediction result:", data)
       } catch (err: unknown) {
-        // This will now show the error from Python in the browser console
-        console.error("Prediction failed:", err);
+        console.error("Prediction failed:", err)
       }
     } catch (error: unknown) {
       console.error(error)
@@ -115,7 +112,7 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
     <div className="space-y-4">
       <div className="flex w-full items-center justify-center">
         <label htmlFor="file-upload" className="w-full cursor-pointer">
-          <div className="relative flex w-full flex-col items-center justify-center rounded-lg border-2 border-gray-300 border-dashed bg-gray-50 py-16 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-bray-800 dark:hover:bg-gray-600">
+          <div className="relative flex w-full flex-col items-center justify-center rounded-lg border-2 border-gray-300 border-dashed bg-gray-50 py-16 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:hover:bg-gray-600">
             {loading && (
               <div className="max-w-md text-center">
                 <Spinner />
@@ -126,12 +123,19 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
 
             {!loading && !file && (
               <div className="text-center">
-                <div className="mx-auto max-w-min rounded-md p-2">
+                <div className="mx-auto flex items-center justify-center gap-2">
                   <UploadCloud className="h-5 w-5" />
+                  <p className="mt-2 text-gray-500 text-sm dark:text-gray-400">
+                    <span className="font-semibold">Upload a file</span>
+                  </p>
+                  <a
+                    href="/sample/example5.csv" // Path to your sample.csv file
+                    download="sample.csv"
+                    className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm ml-2"
+                  >
+                    <DownloadIcon className="h-5 w-5 inline" /> Sample
+                  </a>
                 </div>
-                <p className="mt-2 text-gray-500 text-sm dark:text-gray-400">
-                  <span className="font-semibold">Upload a file</span>
-                </p>
                 <p className="text-gray-400 text-xs dark:text-gray-400">CSV or Excel (MAX. 20MB)</p>
               </div>
             )}
@@ -148,7 +152,7 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
                   <button
                     type="button"
                     onClick={(e) => {
-                      e.stopPropagation() // Prevent triggering file upload
+                      e.stopPropagation()
                       removeFile()
                     }}
                     className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
