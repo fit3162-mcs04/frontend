@@ -72,14 +72,25 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
         result: "STROKE",
       })
 
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict`, {
-      //   method: "POST",
-      //   body: formData,
-      // });
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict`, {
+          method: "POST",
+          body: formData,
+        });
 
-      // const data = await res.json();
+        const data = await res.json();
 
-      // console.log(data);
+        if (!res.ok) {
+          // This captures Flask error messages from `jsonify({'error': str(e)})`
+          toast.error("Failed to process the file")
+          throw new Error(data.error || "Prediction failed");
+        }
+
+        console.log("Prediction result:", data);
+      } catch (err: unknown) {
+        // This will now show the error from Python in the browser console
+        console.error("Prediction failed:", err);
+      }
 
       router.refresh()
     } catch (error: unknown) {
