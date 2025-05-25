@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { AccountDeleteForm } from "./components/account-delete-form"
 
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: "Account - Settings | MCS04 | FIT3162",
   description: "",
