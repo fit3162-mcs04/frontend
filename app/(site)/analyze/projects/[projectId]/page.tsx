@@ -8,11 +8,11 @@ import { redirect } from "next/navigation"
 import { ImageForm } from "./components/image-form"
 
 interface ProjectEditPageProps {
-  params: { projectId: string }
+  params: Promise<{ projectId: string }>
 }
 
 export async function generateMetadata({ params }: ProjectEditPageProps): Promise<Metadata> {
-  const { projectId } = params
+  const { projectId } = await params
   const { title } = await fetchProject(projectId)
 
   return {
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ProjectEditPageProps): Promis
 }
 
 export default async function ProjectEditPage({ params }: ProjectEditPageProps) {
-  const { projectId } = params
+  const { projectId } = await params
 
   const { session } = await fetchSession()
   if (!session) {

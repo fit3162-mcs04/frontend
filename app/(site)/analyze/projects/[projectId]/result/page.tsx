@@ -14,11 +14,11 @@ import { ClassificationReportCard } from "./components/classification-report"
 import { TopFeatureCard } from "./components/top_feature_card"
 
 interface ProjectResultPageProps {
-  params: { projectId: string }
+  params: Promise<{ projectId: string }>
 }
 
 export async function generateMetadata({ params }: ProjectResultPageProps): Promise<Metadata> {
-  const { projectId } = params
+  const { projectId } = await params
   const { title } = await fetchProject(projectId)
 
   return {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: ProjectResultPageProps): Prom
 }
 
 export default async function ProjectResultPage({ params }: ProjectResultPageProps) {
-  const { projectId } = params
+  const { projectId } = await params
   const { title } = await fetchProject(projectId)
   const items = await fetchResult(projectId)
   // const { dataId, dataName, modelName, result, resultId, confidence } = await fetchResult(projectId)
