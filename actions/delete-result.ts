@@ -22,7 +22,7 @@ export const deleteResult = actionClient.schema(schema).action(async ({ parsedIn
 
     await db.transaction(async (tx) => {
       await tx.delete(results).where(eq(results.projectId, projectId))
-      await tx.delete(data).where(eq(data.id, dataId))
+      await tx.delete(data).where(eq(data.projectId, projectId))
     })
   } catch (error) {
     console.error("Error while deleting result: ", error)

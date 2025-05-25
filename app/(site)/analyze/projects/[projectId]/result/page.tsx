@@ -32,14 +32,16 @@ export default async function ProjectResultPage({ params }: ProjectResultPagePro
   const { title } = await fetchProject(projectId)
   const items = await fetchResult(projectId)
   // const { dataId, dataName, modelName, result, resultId, confidence } = await fetchResult(projectId)
-  let dataId:string, dataName:string | null, modelName:string, result:string, resultId:string, confidence:number
+  let dataId:string, dataName:string | null, modelName:string
+  // let result:string, resultId:string, confidence:number
   const item_arr = []
   console.log(items.length)
   if (items.length == 0) {
     console.log("item not found")
     redirect(`/analyze/projects/${projectId}`);
   } else {
-  ({dataId, dataName, modelName, result, resultId, confidence} = items[0])
+    // ({ dataId, dataName, modelName, result, resultId, confidence } = items[0]);
+    ({ dataId, dataName, modelName } = items[0]);
     for (const item of items) {
       item_arr.push({id: item.resultId, prediction: item.result, confidence: `${item.confidence}%`})
     }
