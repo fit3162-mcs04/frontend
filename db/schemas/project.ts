@@ -1,5 +1,5 @@
 import { newId } from "@/lib/id"
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core"
+import { sqliteTable, text, integer, uniqueIndex } from "drizzle-orm/sqlite-core"
 import { user } from "./user"
 
 export const project = sqliteTable("projects", {
