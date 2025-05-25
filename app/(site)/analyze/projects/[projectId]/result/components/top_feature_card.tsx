@@ -14,6 +14,7 @@ export const TopFeatureCard: React.FC<ModelCardProps> = ({ model }) => {
       <CardContent>
         <img
             src= {`/images/top_features_${model}.png`}
+            alt={`top_features_${model}`}
         />
       </CardContent>
     </Card>

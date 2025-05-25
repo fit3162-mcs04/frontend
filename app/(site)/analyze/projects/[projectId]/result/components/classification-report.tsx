@@ -14,6 +14,7 @@ export const ClassificationReportCard: React.FC<ModelCardProps> = ({ model }) =>
       <CardContent>
         <img
             src= {`/images/classification_report_${model}.png`}
+            alt={`classification_report_${model}`}
         />
       </CardContent>
     </Card>
