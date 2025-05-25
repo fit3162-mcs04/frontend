@@ -41,13 +41,19 @@ export const SignInForm = () => {
   const onSubmit = async (e: z.infer<typeof formSchema>) => {
     try {
       setLoading(true)
-      await signIn.email({
+
+      const result = await signIn.email({
         email: e.email,
         password: e.password,
       })
 
-      toast.success("Successfully signed in")
-      router.refresh()
+      if (result?.error) {
+        throw new Error(result.error.message || "Sign in failed")
+      } else {
+        toast.success("Successfully signed in")
+        router.refresh()
+      }
+      
     } catch (error: any) {
       toast.error(`Failed to sign in: ${error?.message ?? "Unknown error"}`)
       console.error("Error while signing in:", error)
