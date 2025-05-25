@@ -1,5 +1,5 @@
 import { newId } from "@/lib/id"
-import { sqliteTable, text } from "drizzle-orm/sqlite-core"
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core"
 import { user } from "./user"
 
 export const project = sqliteTable("projects", {
@@ -42,4 +42,5 @@ export const results = sqliteTable("results", {
     .references(() => data.id, { onDelete: "cascade" }),
   modelName: text("model").notNull(),
   result: text("result").notNull(),
+  confidence: integer("confidence").notNull(),
 })
