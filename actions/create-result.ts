@@ -11,11 +11,12 @@ const schema = z.object({
   modelName: z.string(),
   projectId: z.string(),
   result: z.string(),
+  confidence: z.number()
 })
 
 export const createResult = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { name, modelName, projectId, result } }) => {
+  .action(async ({ parsedInput: { name, modelName, projectId, result, confidence } }) => {
     try {
       const { session } = await fetchSession()
       if (!session) {
@@ -37,6 +38,7 @@ export const createResult = actionClient
           })
 
         await tx.insert(results).values({
+          confidence,
           result,
           modelName,
           projectId,

@@ -12,7 +12,7 @@ export const fetchResult = async (projectId: string) => {
       throw new Error("Not Authenticated")
     }
 
-    const [item] = await db
+    const items = await db
       .select({
         projectId: results.projectId,
         resultId: results.id,
@@ -20,15 +20,14 @@ export const fetchResult = async (projectId: string) => {
         dataName: data.name,
         modelName: results.modelName,
         result: results.result,
+        confidence: results.confidence
       })
       .from(results)
       .where(eq(results.projectId, projectId))
-      .leftJoin(data, and(eq(data.id, results.dataId), eq(data.projectId, projectId)))
-      .limit(1)
+      .leftJoin(data, and(eq(data.id, results.dataId), eq(data.projectId, projectId)));
 
-    return {
-      ...item,
-    }
+    console.log("Fetched items:", items);
+    return items
   } catch (error) {
     console.error("Error while fetching data for project: ", error)
     throw error
