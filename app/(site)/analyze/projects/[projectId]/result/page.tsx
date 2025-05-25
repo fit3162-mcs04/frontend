@@ -32,7 +32,7 @@ export default async function ProjectResultPage({ params }: ProjectResultPagePro
   const { title } = await fetchProject(projectId)
   const items = await fetchResult(projectId)
   // const { dataId, dataName, modelName, result, resultId, confidence } = await fetchResult(projectId)
-  let dataId, dataName, modelName, result, resultId, confidence
+  let dataId:string, dataName:string | null, modelName:string, result:string, resultId:string, confidence:number
   const item_arr = []
   console.log(items.length)
   if (items.length == 0) {
