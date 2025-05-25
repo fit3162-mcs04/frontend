@@ -6,7 +6,7 @@ import Link from "next/link"
 
 interface BreadcrumbItem {
   label: string
-  href: string
+  href?: string
   icon?: React.ReactNode
 }
 
@@ -37,17 +37,18 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 {separator}
               </span>
             )}
-            {index === items.length - 1 ? (
-              <span className={cn(activeItemClassName)} aria-current="page">
-                {item.icon && <span className="mr-1">{item.icon}</span>}
-                {item.label}
-              </span>
-            ) : (
+            {item.href ? (
               <Link href={item.href} className={cn(itemClassName, "flex items-center")}>
                 {item.icon && <span className="mr-1">{item.icon}</span>}
                 {item.label}
               </Link>
+            ) : (
+              <span className={cn("flex items-center", activeItemClassName)} aria-current="page">
+                {item.icon && <span className="mr-1">{item.icon}</span>}
+                {item.label}
+              </span>
             )}
+
           </li>
         ))}
       </ol>
