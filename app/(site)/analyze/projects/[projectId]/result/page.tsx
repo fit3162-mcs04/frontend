@@ -41,7 +41,7 @@ export default async function ProjectResultPage({ params }: ProjectResultPagePro
   } else {
   ({dataId, dataName, modelName, result, resultId, confidence} = items[0])
     for (const item of items) {
-      item_arr.push({prediction: item.result, confidence: `${item.confidence}%`})
+      item_arr.push({id: item.resultId, prediction: item.result, confidence: `${item.confidence}%`})
     }
   }
 

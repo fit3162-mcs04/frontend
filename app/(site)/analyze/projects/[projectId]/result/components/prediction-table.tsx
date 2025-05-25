@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 
 type PredictionRow = {
-  prediction: string;
-  confidence: string;
+    id:string;
+    prediction: string;
+    confidence: string;
 };
 
 interface PredictionTableProps {
-  data: PredictionRow[];
+    data: PredictionRow[];
 }
 
 export const PredictionTable: React.FC<PredictionTableProps> = ({ data }) => {
@@ -56,7 +57,7 @@ export const PredictionTable: React.FC<PredictionTableProps> = ({ data }) => {
             <tbody className="[&>tr:last-child]:border-0">
             {visibleData.map((row, index) => (
                 <tr
-                key={startIdx + index}
+                key={row.id}
                 className="border-b transition-colors hover:bg-muted/50"
                 >
                 <td style={{ width: '20%' }} className="p-2 align-middle">
@@ -76,6 +77,7 @@ export const PredictionTable: React.FC<PredictionTableProps> = ({ data }) => {
       </div>
       <div className="flex justify-between items-center p-2">
         <button
+            type='button'
             onClick={handlePrev}
             disabled={currentPage === 0}
             className={`px-3 py-1 text-sm border rounded disabled:opacity-50 ${currentPage === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
@@ -84,6 +86,7 @@ export const PredictionTable: React.FC<PredictionTableProps> = ({ data }) => {
             </button>
 
             <button
+            type='button'
             onClick={handleNext}
             disabled={currentPage >= totalPages - 1}
             className={`px-3 py-1 text-sm border rounded disabled:opacity-50 ${currentPage >= totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
