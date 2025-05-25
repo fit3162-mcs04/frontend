@@ -34,8 +34,8 @@ export default function AboutPage() {
     {
       id: 4,
       name: "Tan Kok Wei",
-      role: "ML Engineer",
-      bio: "Responsible for machine learning model and data pipeline development and deployment",
+      role: "ML Engineer & Full-stack Developer",
+      bio: "Responsible for machine learning model, frontend, backend and data pipeline development and deployment",
       contact: "ktan0149@student.monash.edu",
     },
   ]
