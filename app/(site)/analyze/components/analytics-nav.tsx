@@ -13,8 +13,8 @@ export const AnalyticsNav = () => {
       <div className="flex items-center justify-between space-y-2">
         <Breadcrumb
           items={[
-            { label: "Dashboard", href: "/dashboard" },
-            { label: "Analyze", href: "/dashboard/analyze" },
+            { label: "Dashboard" },
+            { label: "Analyze", href: "/analyze" },
           ]}
         />
         <Button size="sm" onClick={() => setOpen(true)}>
