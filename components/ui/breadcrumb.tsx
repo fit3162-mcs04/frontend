@@ -31,7 +31,8 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
     <nav aria-label="Breadcrumb">
       <ol className={cn("flex items-center text-slate-600 text-xs md:text-sm dark:text-slate-400", className)}>
         {items.map((item, index) => (
-          <li key={item.href} className="flex items-center">
+          <li key={`${item.href ?? "nohref"}-${item.label}`} className="flex items-center">
+
             {index > 0 && (
               <span className={separatorClassName} aria-hidden="true">
                 {separator}
