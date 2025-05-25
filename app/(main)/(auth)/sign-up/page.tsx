@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { SignUpForm } from "./components/sign-up-form"
-
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: "Sign Up | FIT3162 | MCS04",
   description: "",

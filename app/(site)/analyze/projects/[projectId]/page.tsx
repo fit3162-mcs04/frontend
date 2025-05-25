@@ -10,7 +10,7 @@ import { ImageForm } from "./components/image-form"
 interface ProjectEditPageProps {
   params: Promise<{ projectId: string }>
 }
-
+export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: ProjectEditPageProps): Promise<Metadata> {
   const { projectId } = await params
   const { title } = await fetchProject(projectId)

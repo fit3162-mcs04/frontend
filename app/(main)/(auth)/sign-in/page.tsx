@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { SignInForm } from "./components/sign-in-form"
 
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: "Sign In | FIT3162 | MCS04",
   description: "",

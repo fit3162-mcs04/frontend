@@ -2,7 +2,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb"
 import { ArrowRightIcon, Award, Brain, FileSpreadsheet } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
-
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: "About Us | FIT3162 | MCS04",
   description: "Learn about our team and our mission to analyze genetic stroke risk using AI technology",

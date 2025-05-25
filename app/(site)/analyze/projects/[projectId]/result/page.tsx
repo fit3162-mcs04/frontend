@@ -16,7 +16,7 @@ import { TopFeatureCard } from "./components/top_feature_card"
 interface ProjectResultPageProps {
   params: Promise<{ projectId: string }>
 }
-
+export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: ProjectResultPageProps): Promise<Metadata> {
   const { projectId } = await params
   const { title } = await fetchProject(projectId)
