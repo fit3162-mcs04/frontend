@@ -84,6 +84,8 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
           // This captures Flask error messages from `jsonify({'error': str(e)})`
           toast.error("Failed to process the file")
           throw new Error(data.error || "Prediction failed");
+        } else {
+          router.refresh()
         }
 
         console.log("Prediction result:", data);
@@ -91,8 +93,6 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
         // This will now show the error from Python in the browser console
         console.error("Prediction failed:", err);
       }
-
-      router.refresh()
     } catch (error: unknown) {
       console.error(error)
       toast.error("Failed to process the file")

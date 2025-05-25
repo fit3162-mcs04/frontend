@@ -22,7 +22,8 @@ export const TargetCard: React.FC<TargetCardProps> = ({ dataId, resultId, name }
   const router = useRouter()
   const { executeAsync: remove, isPending: isDeleting } = useAction(deleteResult, {
     onSuccess: () => {
-      toast.success("data deleted successfully")
+      toast.success("data deleted suaaaaccessfully")
+      router.refresh()
     },
     onError: () => {
       toast.error("Failed to delete data")
