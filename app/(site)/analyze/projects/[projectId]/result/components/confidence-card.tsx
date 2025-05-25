@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ActivityIcon, PercentIcon } from "lucide-react"
 
 interface ConfidenceCardProps {
-  confidence: string
+  confidence: number
 }
 export const ConfidenceCard: React.FC<ConfidenceCardProps> = ({ confidence }) => {
   return (

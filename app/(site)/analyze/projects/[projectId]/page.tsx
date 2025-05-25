@@ -8,11 +8,11 @@ import { redirect } from "next/navigation"
 import { ImageForm } from "./components/image-form"
 
 interface ProjectEditPageProps {
-  params: Promise<{ projectId: string }>
+  params: { projectId: string }
 }
 
 export async function generateMetadata({ params }: ProjectEditPageProps): Promise<Metadata> {
-  const { projectId } = await params
+  const { projectId } = params
   const { title } = await fetchProject(projectId)
 
   return {
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ProjectEditPageProps): Promis
 }
 
 export default async function ProjectEditPage({ params }: ProjectEditPageProps) {
-  const { projectId } = await params
+  const { projectId } = params
 
   const { session } = await fetchSession()
   if (!session) {
@@ -32,8 +32,8 @@ export default async function ProjectEditPage({ params }: ProjectEditPageProps) 
   const { title } = await fetchProject(projectId)
 
   // Redirect if already data exists
-  const { resultId } = await fetchResult(projectId)
-  if (resultId) {
+  const items = await fetchResult(projectId)
+  if (items.length > 0) {
     redirect(`/analyze/projects/${projectId}/result`)
   }
 
@@ -42,9 +42,9 @@ export default async function ProjectEditPage({ params }: ProjectEditPageProps) 
       <div className="flex items-center justify-between space-y-2">
         <Breadcrumb
           items={[
-            { label: "Dashboard", href: "/dashboard" },
+            { label: "Dashboard"},
             { label: "Analyze", href: "/analyze" },
-            { label: `${title}`, href: `/analyze/${projectId}` },
+            { label: `${title}` },
           ]}
         />
       </div>

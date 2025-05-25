@@ -18,6 +18,11 @@ interface ImageFormProps {
   projectId: string
 }
 
+interface PredictionItem {
+  confidence: number
+  prediction: string
+}
+
 export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
@@ -64,13 +69,6 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
       formData.append("file", file)
       formData.append("model", selectedModel)
 
-      await create({
-        name: file.name,
-        projectId,
-        modelName: selectedModel,
-        result: "STROKE",
-      })
-
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/predict`, {
           method: "POST",
@@ -83,6 +81,18 @@ export const ImageForm: React.FC<ImageFormProps> = ({ projectId }) => {
           toast.error("Failed to process the file")
           throw new Error(data.error || "Prediction failed")
         } else {
+            for (const [index, item] of Object.entries(data)) {
+                const predictionItem = item as PredictionItem;
+
+                await create({
+                  name: file.name,
+                  projectId,
+                  modelName: selectedModel,
+                  result: predictionItem.prediction,
+                  confidence: predictionItem.confidence,
+                });
+              }
+          
           router.refresh()
         }
 

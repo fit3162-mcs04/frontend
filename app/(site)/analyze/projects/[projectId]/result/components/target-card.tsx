@@ -12,17 +12,17 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 interface TargetCardProps {
-  resultId: string
+  projectId: string
   dataId: string
   name: string
 }
 
-export const TargetCard: React.FC<TargetCardProps> = ({ dataId, resultId, name }) => {
+export const TargetCard: React.FC<TargetCardProps> = ({ dataId, projectId, name }) => {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const { executeAsync: remove, isPending: isDeleting } = useAction(deleteResult, {
     onSuccess: () => {
-      toast.success("data deleted suaaaaccessfully")
+      toast.success("data deleted successfully")
       router.refresh()
     },
     onError: () => {
@@ -32,7 +32,7 @@ export const TargetCard: React.FC<TargetCardProps> = ({ dataId, resultId, name }
 
   const handleDelete = async () => {
     try {
-      await remove({ dataId, resultId })
+      await remove({ dataId, projectId })
 
       router.refresh()
     } catch (error) {

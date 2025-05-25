@@ -31,12 +31,12 @@ export const ProjectList = () => {
           <AlertDescription>There are no projects to display. Create one to get started.</AlertDescription>
         </Alert>
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="font-bold text-3xl">Project List</h1>
-              <p className="text-muted-foreground">Access your project history</p>
-            </div>
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h1 className="font-bold text-3xl">Project List</h1>
+            <p className="text-muted-foreground">Access your project history</p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {data.map((project) => (
               <ProjectItem key={project.id} id={project.id} title={project.title} description={project.description} />
             ))}
