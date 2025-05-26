@@ -8,7 +8,8 @@ export default async function SiteLayout({
   children: React.ReactNode
 }>) {
   const { session } = await fetchSession()
-
+  console.log("getting session")
+  console.log(session)
   const signedIn = session !== undefined
 
   return (

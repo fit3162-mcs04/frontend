@@ -1,25 +1,24 @@
 "use server"
 
 import { actionClient } from "@/lib/action"
-import { authClient } from "@/lib/auth-client"
 import { headers } from "next/headers"
+import { fetchSession } from "./fetch-session"
+import { db } from "@/db"
+import { user } from "@/db/schemas"
+import { eq } from "drizzle-orm"
 
 export const deleteAccount = actionClient.action(async () => {
   try {
-    const { deleteUser } = authClient
-    const header = await headers()
+    const { session } = await fetchSession()
 
-    const { data } = await deleteUser({
-      callbackURL: `${process.env.NEXT_PUBLIC_APP_URL}/sign-in`,
-      fetchOptions: {
-        headers: {
-          cookie: header.get("cookie") || "",
-        },
-      },
-    })
-    return {
-      ...data,
+    if (!session) {
+      throw new Error("Not Authenticated")
     }
+
+    const userId = session.userId
+
+    await db.delete(user).where(eq(user.id, userId))
+
   } catch (error) {
     console.error("Error while deleting account: ", error)
     throw error
